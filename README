@@ -1,0 +1,31 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=2021
+
+It is a common practice to insert header guards into C/C++ header files to
+allow a header to be included multiple times.  A header guard for file
+HeaderName.h typically looks something like this: >
+
+  #ifndef HEADERNAME_H
+  #define HEADERNAME_H
+
+    ...header content...
+
+  #endif /* HEADERNAME_H */
+
+This plugin provides the following command:         *HeaderguardAdd*  >
+
+  :HeaderguardAdd                                   
+
+This will add a new header guard to the current file.  It checks for a
+pre-existing header guard, and if found, modifies the existing guard in-place.  
+
+Detection of pre-existing header guards is somewhat primitive.  The first two
+pre-processor directives in the file must be the pre-existing header guard's
+#ifndef (or #if !defined()) and #define directives, and the final directive in
+the file must be the corresponding #endif.  Pre-existing header guards not
+following this form won't be recognized and thus cannot be converted in-place.
+To avoid mistakenly adding another header guard with the same guard name,
+|HeaderguardAdd| will refuse to add a new header guard if it can find a
+#define of the guard name macro anywhere in the file.
+
+The guard style may be configured; details on customization and more
+are found in the included documentation.
